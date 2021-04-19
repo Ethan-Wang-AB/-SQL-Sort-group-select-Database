@@ -1,0 +1,123 @@
+SQL> --question 1
+SQL> select customer_no "Customer Num",actual_date_returned-date_due "Days Delay"
+  2  from cp_rental
+  3  where actual_date_returned>date_due
+  4  order by 1;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+Customer Num Days Delay                                                                                                             
+------------ ----------                                                                                                             
+        1000          1                                                                                                             
+        1002          2                                                                                                             
+SQL> 
+SQL> --question 2
+SQL> COLUMN "Film Title" FORMAT A30
+SQL> COLUMN actors FORMAT A22
+SQL> COLUMN "Rating" FORMAT A20
+SQL> select initcap(film_title) "Film Title",actors,star_rating "Rating"
+  2  from cp_title
+  3  where runtime<150 and length(star_rating)>3
+  4  order by star_rating,film_title;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+Film Title                     ACTORS                 Rating                                                                        
+------------------------------ ---------------------- --------------------                                                          
+Silence Of The Lambs, The      Jody Foster, Anthony H ****                                                                          
+                               opkins, Scott Glenn                                                                                  
+                                                                                                                                    
+SQL> CLEAR COLUMNS
+SQL> --question 3
+SQL> select store_number ,count(DVD_number) "# of DVDs"
+  2  from CP_DVD
+  3  group by store_number
+  4  order by store_number;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+STORE_NUMBER  # of DVDs                                                                                                             
+------------ ----------                                                                                                             
+           1          7                                                                                                             
+           2          4                                                                                                             
+SQL> 
+SQL> --question 4
+SQL> select name,Area_code ||' '|| phone_number "Phone Number", film_title "Film",date_out, date_due
+  2  from cp_customer c join CP_RENTAL r on r.customer_no=c.customer_no
+  3  				  join CP_DVD d on d.DVD_number=r.DVD_number
+  4  				      join CP_TITLE t on t.Title_code=d.Title_code
+  5  where actual_date_returned is null;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+NAME                           Phone Numbe Film                                                              DATE_OUT  DATE_DUE     
+------------------------------ ----------- ----------------------------------------------------------------- --------- ---------    
+Williams, Mel                  416 2457812 Anne of the Thousand Days                                         06-MAR-21 08-MAR-21    
+******************************                                                                               ---------              
+Ttl Rented                                                                                                           1              
+                                                                                                                                    
+Ellard, John                   416 7687896 Silence of the Lambs, The                                         25-FEB-21 27-FEB-21    
+******************************                                                                               ---------              
+Ttl Rented                                                                                                           1              
+                                                                                                                                    
+Zink, Penny                    416 3248493 Silence of the Lambs, The                                         04-MAR-21 05-MAR-21    
+******************************                                                                               ---------              
+Ttl Rented                                                                                                           1              
+                                                                                                                                    
+                                                                                                             ---------              
+CPV Ttl                                                                                                              3              
+SQL> 
+SQL> --question 5
+SQL> select name
+  2  from CP_CUSTOMER
+  3  where customer_no not in (select customer_no from cp_rental)
+  4  order by name;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+NAME                                                                                                                                
+------------------------------                                                                                                      
+Johnson, Jeremy                                                                                                                     
+                                                                                                                                    
+SQL> 
+SQL> --question 6
+SQL> select name, count(dvd_number)
+  2  from cp_customer join cp_rental using(customer_no)
+  3  group by name
+  4  having count(dvd_number) > (select avg(count(dvd_number))
+  5  							     from cp_rental
+  6  							     group by customer_no)
+  7  order by name;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+NAME                           COUNT(DVD_NUMBER)                                                                                    
+------------------------------ -----------------                                                                                    
+Williams, Mel                                  3                                                                                    
+                                                                                                                                    
+Zink, Penny                                    2                                                                                    
+                                                                                                                                    
+SQL> 
+SQL> --question 7
+SQL> select category_description "Category",film_title "Film",count (dvd_number) "# of DVDs"
+  2  from cp_dvd d, cp_title t,cp_category c
+  3  where d.title_code=t.title_code and c.category_code=t.category_code
+  4  group by grouping sets(category_description,film_title,())
+  5  order by category_description,film_title;
+
+                                                              Customer                                                              
+                                                            Usage Report                                                            
+Category             Film                                                               # of DVDs                                   
+-------------------- ----------------------------------------------------------------- ----------                                   
+Adventure                                                                                       1                                   
+Comedy                                                                                          2                                   
+Drama                                                                                           4                                   
+Mystery                                                                                         4                                   
+                     Anne of the Thousand Days                                                  2                                   
+                     Best Years of Our lives, The                                               2                                   
+                     Horse Feathers                                                             2                                   
+                     Macon County Line                                                          1                                   
+                     Silence of the Lambs, The                                                  4                                   
+                                                                                               11                                   
+SQL> 
+SQL> spool off

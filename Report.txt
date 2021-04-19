@@ -1,0 +1,30 @@
+
+                                              Customer                                              
+                                            Usage Report                                            
+Name                   Category     Title                                    Rented on              
+---------------------- ------------ ---------------------------------------- ---------------        
+Ellard, John           Mystery      Silence of the Lambs, The                25-FEB-21              
+********************** ************                                          ---------------        
+Ttl Rented                                                                                 1        
+                                                                                                    
+Lee, Sarah             Mystery      Silence of the Lambs, The                28-FEB-21              
+********************** ************                                          ---------------        
+Ttl Rented                                                                                 1        
+                                                                                                    
+Rogers, Hal            Drama        Best Years of Our lives, The             03-MAR-21              
+********************** ************                                          ---------------        
+Ttl Rented                                                                                 1        
+                                                                                                    
+Williams, Mel          Drama        Anne of the Thousand Days                02-MAR-21              
+                                    Anne of the Thousand Days                06-MAR-21              
+                                    Best Years of Our lives, The             03-MAR-21              
+********************** ************                                          ---------------        
+Ttl Rented                                                                                 3        
+                                                                                                    
+Zink, Penny            Mystery      Silence of the Lambs, The                04-MAR-21              
+                                    Silence of the Lambs, The                04-MAR-21              
+********************** ************                                          ---------------        
+Ttl Rented                                                                                 2        
+                                                                                                    
+                                                                             ---------------        
+CPV Ttl                                                                                    8        
